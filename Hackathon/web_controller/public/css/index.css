@@ -1,0 +1,37 @@
+html, body, div{
+    height:100%;
+    background-color:#393E46;
+//    background-color:#FFFFFF;
+    color:#EEEEEE;
+    font-family:Microsoft JhengHei;
+    overscroll-behavior: contain;
+    overflow: hidden;
+}
+#head_title{
+    padding:1.5em 0 1.5em 0;
+    text-align:center;
+    font-size:3.5em;
+    height:5em;
+}
+.container{
+    width:100%;
+}
+.row{
+    height: 30%;
+}
+#rocker_canvas{
+    border: 1px solid gray;
+    height: 100%;
+    width: 100%;
+}
+button{
+    margin: 1em 0em 1em 0em;
+    height:80%;
+    width:80%;
+    font-size: 2.5em;
+    text-align: center;
+    background-color: #ABEDD8;
+}
+#btn_left #btn_right{
+    display: inline;
+}
