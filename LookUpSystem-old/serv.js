@@ -14,7 +14,7 @@ function getSheetJson(index){
         res.on('end', ()=>{
 //            console.log(body)
             var content = JSON.parse(body);
-            var entry = content.feed.entry; 
+            var entry = content.feed.entry;
             const title = content.feed.title["$t"];
             sheetJson[title] = [];
             var obj=[];
