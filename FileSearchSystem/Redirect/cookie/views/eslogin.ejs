@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title登入</title>
+    <style>
+        p{color: red}
+    </style>
+</head>
+<body>
+    <form action="eslogin" method="post">
+        <%if(typeof(error) !== 'undefined' && error){%>
+         <p><%= error %></p>
+        <% } %>
+         使用者名稱：<input type="text" name="username" ><br/>
+         密碼：<input type="password" name="pwd" ><br/>
+        <input type="submit" value="登入">
+    </form>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>主頁</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <%if(typeof(user) !== 'undefined' && user){%>
+    <h1>Welcome <%= user.username %>, 歡迎登入！！</h1>
+    <a claa="btn" href="/logout">退出</a>
+    <%}else{%>
+        <h1>Welcome  , <a claa="btn" href="/login">請登入！！</a></h1>
+    <%}%>
+  </body>
+</html>
