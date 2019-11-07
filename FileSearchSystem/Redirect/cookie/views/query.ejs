@@ -5,11 +5,11 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-	<h1>老鼠暱稱: <%= query.name %></h1>
-	<h2>所屬小隊: <%= query.team %></h2>
-	<h2>小隊分數: <%= query.score %></h2>
-	
-	
+	<h1>老鼠暱稱: <%= data.name %></h1>
+	<h2>所屬小隊: <%= data.team %></h2>
+	<h2>小隊分數: <%= data.score %></h2>
+
+
     <%if(typeof(user) !== 'undefined' && user){%>
 	<%if(user.username == '4ff75f80957469c4b6af5824cb99bf4919abad98'){%>
     <button type="button">增加分數</button>

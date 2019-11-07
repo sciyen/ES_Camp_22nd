@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var csv =require('fast-csv');
+var converter = require('hex2dec');
 
 /* GET home page. */
 router.get('/index', function(req, res, next) {
@@ -42,22 +44,79 @@ module.exports = router;
 
 //////
 
+
+var database = [];
+var teamscore = [];
+var csvstream = csv.parseFile("../csv/data.csv", { headers: true })
+.on("data", function (row) {
+    csvstream.pause();
+    // do some heavy work
+    
+    database.push(row);
+
+    // when done resume the stream
+    csvstream.resume();
+})
+.on("end", function () {
+    console.log("We are done!")
+})
+.on("error", function (error) {
+    console.log(error)
+});
+
+var csvstream2 = csv.parseFile("../csv/team.csv", { headers: true })
+.on("data", function (row) {
+    csvstream2.pause();
+    // do some heavy work
+    
+    teamscore.push(row);
+
+    // when done resume the stream
+    csvstream2.resume();
+})
+.on("end", function () {
+    console.log("We are done!")
+})
+.on("error", function (error) {
+    console.log(error)
+});
+//////
+
+function dehash(hash){
+	var row = converter.hexToDec(hash.slice(13,15))-17;
+	console.log(hash.slice(13,15));
+	return row;//row start from 1
+}
+
 //query
 router.get('/query', function(req, res, next) {
     console.log(req.cookies.user);
 
-        if (req.cookies.user && req.cookies.user.username == '4ff75f80957469c4b6af5824cb99bf4919abad98') {
-            req.user = req.cookies.user;
-            console.log('access successful');
-        } else {
-            console.log('access fail');
-        }
-        res.render('query', req);
+    if (req.cookies.user && req.cookies.user.username == '4ff75f80957469c4b6af5824cb99bf4919abad98') {
+        req.user = req.cookies.user;
+        console.log('access successful');
+    } else {
+        console.log('access fail');
+    }
+
+    //const test = 'b1141164cf258ce64aa70867c62883e941a9ff6a';
+
+    var row = dehash(req.query.value);
+	
+    req.data = {};
+    req.data.name = database[row].name;
+    req.data.team = database[row].team;
+    req.data.score = teamscore[database[row].team-1].score;
+
+	////
+    res.render('query', req);
+
 });
 
 router.get('/eslogin', function(req, res, next) {
     res.render('eslogin')
 })
+
 
 router.post('/eslogin', function(req, res, next) {
     console.log(req.body.username);
