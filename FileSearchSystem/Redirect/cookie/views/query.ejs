@@ -5,22 +5,22 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-	<font size="6" face="Microsoft JhengHei">老鼠暱稱: <%= data.name %></font><br/>
-	<font size="5" face="Microsoft JhengHei">所屬小隊: <%= data.team %></font><br/>
+	<span id="sizeA">老鼠暱稱: <%= data.name %></span><br/>
+	<span id="sizeB">所屬小隊: <%= data.team %></span><br/>
 
 
     <%if(typeof(user) !== 'undefined' && user.username == '4ff75f80957469c4b6af5824cb99bf4919abad98'){%>
         <%if(user.comsumeMode){%>
           <br/>
             <form action="confirmConsume?value=<%= query.value %>&team=<%= data.team %>" method="post" id="check">
-              <font size="5" face="Microsoft JhengHei" color="#C05050">
+              <span id="sizeB"><font color="#C05050">
                 <B>【消費
-                 <input type="text" id="consumeValue" name="consumeValue" style="width:28px;font-size:18px; font-family:Microsoft JhengHei">
+                 <input type="text" id="consumeValue" name="consumeValue" style="width:28px; font-family:Microsoft JhengHei">
                 分】 小隊分數: <%= data.score %> → <span id="score">??</span>
                 </B>
-              </font>
+              </span>
 
-              <button type="button" onclick="calc()"><font size="5" face="Microsoft JhengHei">計算分數</font></button>
+              <button type="button" onclick="calc()"><span id="sizeB">計算分數</span></button>
 
               <script>
               function calc() {
@@ -29,28 +29,28 @@
               }
               </script>
 
-              <span id="hidden" style="display: none"><input type="submit" value="確認消費" name="confirm" style="font-size:20px; font-family:Microsoft JhengHei"></span>
+              <span id="hidden" style="display: none"><input type="submit" value="確認消費" name="confirm" style=" font-family:Microsoft JhengHei"></span>
                 
             </form>
           <br/>
-          <a claa="btn" href="/index"><font size="2" face="Microsoft JhengHei">回首頁</font></a>
+          <a claa="btn" href="/index"><span id="sizeD">回首頁</span></a>
         <%}else{%>
         	<br/>
           <form action="confirmAdd?value=<%= query.value %>&team=<%= data.team %>" method="post">
-          <font size="5" face="Microsoft JhengHei" color="#50C050"><B>【加分】 小隊分數: <%= data.score %> → 
+          <span id="sizeB"><font color="#50C050"><B>【加分】 小隊分數: <%= data.score %> → 
             <%if(user.score){%>
             <%=parseInt(data.score) + parseInt(user.score)%>
             <%}else{%>
             <%=parseInt(data.score)%>
-            <%} %>　</B></font>
+            <%} %>　</B></span>
 
-            <input type="submit" value="確認加分" name="confirm" style="font-size:20px; font-family:Microsoft JhengHei"></form></font>
+            <input type="submit" value="確認加分" name="confirm" style=" font-family:Microsoft JhengHei"></form></span>
           </form>
         	<br/>
-         <a claa="btn" href="/index"><font size="2" face="Microsoft JhengHei">回首頁</font></a>
+         <a claa="btn" href="/index"><span id="sizeD">回首頁</span></a>
          <%}%>
       <%}else{%>
-        <font size="4" face="Microsoft JhengHei">小隊分數: <%= data.score %></font>
+        <span id="sizeC">小隊分數: <%= data.score %></span>
       <%}%>
   </body>
 </html>

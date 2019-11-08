@@ -7,9 +7,9 @@
   <body>
     <%if(typeof(user) !== 'undefined' && user){%>
 
-      <font size="6" face="Microsoft JhengHei" color="A00000">【注意】 消費模式已開啟，現在掃描QR碼將會扣除小隊員分數</font>
+      <span id="sizeA"><font color="A00000">【注意】 消費模式已開啟，現在掃描QR碼將會扣除小隊員分數</font></span>
       <br/><br/>
-      <a claa="btn" href="/cancelComsume"><button type="button"><font size="4" face="Microsoft JhengHei">退出消費模式</font></button></a>
+      <a claa="btn" href="/cancelComsume"><button type="button"><span id="sizeC">退出消費模式</span></button></a>
         
     <%}else{%>
     <h4>But nobody came.</h4>

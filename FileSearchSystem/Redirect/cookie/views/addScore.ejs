@@ -8,17 +8,17 @@
     <%if(typeof(user) !== 'undefined' && user){%>
 
         <form action="addScore" method="post">
-          <label class="control-label" for="score"><font size="6" face="Microsoft JhengHei">分數調整值：</font></label>
+          <label class="control-label" for="score"><span id="sizeA">分數調整值：</span></label>
             
               <input type="text" name="score">
               <p class="help-block">
-              <font size="4" face="Microsoft JhengHei" color="202020"><I>請先在此頁設定好要調整的分數值</I></font></p>
+              <span id="sizeC"><font color="202020"><I>請先在此頁設定好要調整的分數值</I></font></span></p>
               <input type="submit" value="設定完成">
             
         </form>
 
       <br/><br/><br/>
-      <a claa="btn" href="/index"><font size="2" face="Microsoft JhengHei">回首頁</font></a>
+      <a claa="btn" href="/index"><span id="sizeD">回首頁</span></a>
     <%}else{%>
     <h4>But nobody came.</h4>
     <%}%>

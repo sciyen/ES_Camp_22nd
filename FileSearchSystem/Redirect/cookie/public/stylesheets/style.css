@@ -1,6 +1,34 @@
 body {
-  padding: 50px;
-  font: 36px "Microsoft JhengHei", "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 0px;
+}
+
+#sizeA {
+  	padding: 50px;
+	text-align:center;
+	width:100vw;
+    display: inline-block;
+ 	font: 72px "Microsoft JhengHei", "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+#sizeB {
+  	padding: 20px;
+	text-align:center;
+	width:100vw;
+    display: inline-block;
+ 	font: 64px "Microsoft JhengHei", "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+#sizeC {
+  	padding: 10px;
+	text-align:center;
+	width:100vw;
+    display: inline-block;
+ 	font: 48px "Microsoft JhengHei", "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+#sizeD {
+  	padding: 5px;
+	text-align:center;
+	width:100vw;
+    display: inline-block;
+ 	font: 36px "Microsoft JhengHei", "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
