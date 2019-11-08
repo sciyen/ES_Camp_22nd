@@ -6,10 +6,26 @@
   </head>
   <body>
     <%if(typeof(user) !== 'undefined' && user){%>
-    <h1>Welcome <%= user.username %>, 歡迎登入！！</h1>
-    <a claa="btn" href="/logout">退出</a>
+      <font size="6" face="Microsoft JhengHei">【身分認證成功】</font>
+
+
+      <%if(typeof(cookies.user) !== 'undefined' && user.score){%>
+        <br/>
+        <font color="#00A000" size="5" face="Microsoft JhengHei"><I>目前是加分模式，分數值：<%= user.score %></I></font>
+        <br/><br/>
+        <a claa="btn" href="/addScore" size="4"><button type="button"><font size="4" face="Microsoft JhengHei">重設　加分模式</font></button></a>
+      
+      <%}else{%>
+        <br/><br/>
+        <a claa="btn" href="/addScore"><button type="button"><font size="4" face="Microsoft JhengHei">設定成加分模式</font></button></a>
+      <%}%>
+      <br/><br/>
+      <a claa="btn" href="/ComsumeScore"><button type="button"><font color="C00000" size="4" face="Microsoft JhengHei"><B>設定成消費模式</B></font></button></a>
+
+      <br/><br/><br/>
+      <a claa="btn" href="/logout">登出</a>
     <%}else{%>
-        <h1>Welcome  , <a claa="btn" href="/login">請登入！！</a></h1>
+      <h4>Oops, something wrong.</h4>
     <%}%>
   </body>
 </html>
