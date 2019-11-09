@@ -5,30 +5,47 @@ body {
 #sizeA {
   	padding: 50px;
 	text-align:center;
-	width:100vw;
+	width:90vw;
     display: inline-block;
  	font: 72px "Microsoft JhengHei", "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 #sizeB {
   	padding: 20px;
 	text-align:center;
-	width:100vw;
+	width:90vw;
     display: inline-block;
  	font: 64px "Microsoft JhengHei", "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 #sizeC {
   	padding: 10px;
 	text-align:center;
-	width:100vw;
+	width:90vw;
     display: inline-block;
  	font: 48px "Microsoft JhengHei", "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 #sizeD {
   	padding: 5px;
 	text-align:center;
-	width:100vw;
+	width:90vw;
     display: inline-block;
  	font: 36px "Microsoft JhengHei", "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+#form {
+  	padding: 20px;
+	text-align:center;
+	width:100vw;
+}
+#hidden {
+  	padding: 20px;
+	text-align:center;
+	width:100vw;
+}
+#consumeValue{
+  	padding: 10px;
+	text-align:center;
+	width:90vw;
+    display: inline-block;
+ 	font: 48px "Microsoft JhengHei", "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {

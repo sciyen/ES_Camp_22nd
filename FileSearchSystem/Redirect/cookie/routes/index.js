@@ -99,6 +99,7 @@ router.post('/confirmAdd', function(req, res, next) { //實際上的加分
     //add Score //
     //////////////
     var team = req.query.team;
+    
     if (req.cookies.user.score) {
         teamscore[team - 1].score = parseInt(req.cookies.user.score) + parseInt(teamscore[team - 1].score);
         console.log(teamscore[team - 1].score);
@@ -122,13 +123,15 @@ router.post('/confirmConsume', function(req, res, next) {
     //////////////
     //rmv Score //
     ////////////// 
+    req.data = {};
+    req.data.path = req.query.value;
+    if (typeof req.query.value == "number") {
     var team = req.query.team;
     console.log(teamscore[team - 1]);
     teamscore[team - 1].score = parseInt(teamscore[team - 1].score) - parseInt(req.body.consumeValue);
 
-    req.data = {};
-    req.data.path = req.query.value;
     saveScore();
+	}
     res.render('confirmAdd', req);
 });
 

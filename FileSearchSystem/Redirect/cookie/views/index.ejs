@@ -5,6 +5,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+    <p id="form">
     <%if(typeof(user) !== 'undefined' && user){%>
       <span id="sizeA">【身分認證成功】</span>
 
@@ -23,9 +24,10 @@
       <a claa="btn" href="/ComsumeScore"><button type="button"><span id="sizeC"><font color="C00000"><B>設定成消費模式</B></font></span></button></a>
 
       <br/><br/><br/>
-      <a claa="btn" href="/logout">登出</a>
+      <a claa="btn" href="/logout" id="sizeD">登出</a>
     <%}else{%>
       <h4>Oops, something wrong.</h4>
     <%}%>
+  </p>
   </body>
 </html>
