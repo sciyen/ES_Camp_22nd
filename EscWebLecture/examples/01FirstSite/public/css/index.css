@@ -1,0 +1,20 @@
+body{
+    background-color:#393E46;
+    font-family:Microsoft JhengHei;
+}
+p{
+    text-align:center;
+}
+div{
+}
+.main{
+    color:#EEEEEE;
+}
+.block{
+    font-size:3em;
+    vertical-align:middle;
+    color:#AAAAAA;
+}
+.invisible{
+    display:None;
+}
