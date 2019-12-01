@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>【注意】消費模式已開啟</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <%if(typeof(user) !== 'undefined' && user){%>
+    <p id="form">
+      <span id="sizeA"><font color="A00000">【注意】 消費模式已開啟，現在掃描QR碼將會扣除小隊員分數</font></span>
+      <br/><br/>
+      <a claa="btn" href="/cancelComsume"><button type="button"><span id="sizeC">退出消費模式</span></button></a>
+        </p>
+    <%}else{%>
+    <h4>But nobody came.</h4>
+    <%}%>
+  </body>
+</html>

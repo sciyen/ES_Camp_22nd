@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>加分頁面設定</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <%if(typeof(user) !== 'undefined' && user){%>
+
+        <form action="addScore" method="post" id="form">
+          <label class="control-label" for="score"><span id="sizeA">分數調整值：</span></label>
+            
+              <input type="number" name="score" id="sizeB">
+              <p class="help-block">
+              <span id="sizeC"><font color="202020"><I>請先在此頁設定好要調整的分數值</I></font></span></p>
+              <input type="submit" value="設定完成" id="sizeD">
+            
+      <br/><br/><br/>
+      <a claa="btn" href="/index"><span id="sizeD">回首頁</span></a>
+        </form>
+
+    <%}else{%>
+    <h4>But nobody came.</h4>
+    <%}%>
+  </body>
+</html>

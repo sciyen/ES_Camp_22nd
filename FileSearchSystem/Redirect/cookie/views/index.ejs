@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>主頁</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <p id="form">
+    <%if(typeof(user) !== 'undefined' && user){%>
+      <span id="sizeA">【身分認證成功】</span>
+
+
+      <%if(typeof(cookies.user) !== 'undefined' && user.score){%>
+        <br/>
+        <span id="sizeB"><font color="#00A000"><I>目前是加分模式，分數值：<%= user.score %></I></font></span>
+        <br/><br/>
+        <a claa="btn" href="/addScore" size="4"><button type="button"><span id="sizeC">重設　加分模式</span></button></a>
+      
+      <%}else{%>
+        <br/><br/>
+        <a claa="btn" href="/addScore"><button type="button"><span id="sizeC">設定成加分模式</span></button></a>
+      <%}%>
+      <br/><br/>
+      <a claa="btn" href="/ComsumeScore"><button type="button"><span id="sizeC"><font color="C00000"><B>設定成消費模式</B></font></span></button></a>
+
+      <br/><br/><br/>
+      <a claa="btn" href="/logout" id="sizeD">登出</a>
+    <%}else{%>
+      <h4>Oops, something wrong.</h4>
+    <%}%>
+  </p>
+  </body>
+</html>

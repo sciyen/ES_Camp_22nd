@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>工科營工人登入</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+    <form action="eslogin" method="post"  id="form">
+        <%if(typeof(error) !== 'undefined' && error){%>
+         <p id = "sizeB"><font color="red"><%= error %></font></p>
+        <% } %>
+            <font id="sizeB">使用者名稱：</font>
+            <input type="text" name="username" id="sizeB"><br/>
+            <font id="sizeB">密碼：</font>
+            <input type="password" name="pwd" id="sizeB"><br/><br/>
+            <input type="submit" value="登入" id="sizeB">
+    </form>
+</body>
+</html>
