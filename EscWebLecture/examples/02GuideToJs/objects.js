@@ -1,15 +1,15 @@
 
-
 // Create a object
 var name = "John"
 var x = {
     Name:name, 
     Age:16, 
     Phone:"0800-000-123"
-};
+}
 console.log(x)
 
-
+x["Name"] = "Mika" // Set new value
+console.log(x)
 // Add a new property
 x["NickName"] = "Yee"
 console.log(x)

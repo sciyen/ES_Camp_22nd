@@ -1,0 +1,22 @@
+body{
+    background-color:#393E46;
+    font-family:Microsoft JhengHei;
+}
+div{
+    margin:10px 10px 10px 10px;
+    padding:10px;
+    border-style:dotted;
+    border-width:5px;
+    border-color: #748695;
+    border-radius:50px;
+
+    font-size:3em;
+    text-align:center;
+    color:#AAAAAA;
+}
+.response{
+    border-color: #239156;
+}
+.invisible{
+    display:None;
+}
