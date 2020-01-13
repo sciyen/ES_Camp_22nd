@@ -10,6 +10,11 @@ function send_control_req(val){
 }
 $(document).ready(()=>{
     $.extend($.support, { touch: "ontouchend" in document });
+    
+    $("#btn_shoot").click(()=>{
+        send_control_req("shoot");
+    })
+
     $(()=>{
         // Detect if the browser support touch screen
         if (!$.support.touch) {
@@ -104,8 +109,8 @@ $(document).ready(()=>{
             // Send data back to server
             if(counter>=2){
                 // Calculate the percentage of output
-                var delX = 100*(rockerX-centerX)/limitX;
-                var delY = -100*(rockerY-centerY)/limitY;
+                var delX = 200*(rockerX-centerX)/limitX;
+                var delY = -200*(rockerY-centerY)/limitY;
                 var posStr=(Math.round(delX*100)/100).toString(10) + "," + (Math.round(delY*100)/100).toString(10);
                 // It only send request when the cursor is moving
                 if(Math.abs(delX)+Math.abs(delY)>0.02)
@@ -115,6 +120,8 @@ $(document).ready(()=>{
         }, 50);
     })
 })
+
+
 /*
 $("#btn_forward").on("touchstart", ()=>{
     state = "forward"; 

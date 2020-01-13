@@ -1,7 +1,7 @@
 html, body, div{
     height:100%;
     background-color:#393E46;
-//    background-color:#FFFFFF;
+    //    background-color:#FFFFFF;
     color:#EEEEEE;
     font-family:Microsoft JhengHei;
     overscroll-behavior: contain;
@@ -25,9 +25,8 @@ html, body, div{
     width: 100%;
 }
 button{
+    position:relative;
     margin: 1em 0em 1em 0em;
-    height:80%;
-    width:80%;
     font-size: 2.5em;
     text-align: center;
     background-color: #ABEDD8;
