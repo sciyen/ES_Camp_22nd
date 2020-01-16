@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var csv = require('fast-csv');
+var csv = require('fast-csv', {encoding: 'utf-8'})
 var converter = require('hex2dec');
 
 /////////
@@ -236,7 +236,7 @@ router.get('/query', function(req, res, next) {
 
     if (req.query.value) {
         var row = dehash(req.query.value);
-        if (req.query.value == database[row].name) {
+        if (req.query.value == database[row].hash) {
             req.data = {};
             req.data.name = database[row].name;
             req.data.team = database[row].team;
