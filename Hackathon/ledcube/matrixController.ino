@@ -1,24 +1,21 @@
-#define length_x 4
+#define length_x 3
 #define length_y 4
 #define length_map 3
 
-const int control_line_x[length_x] = {2, 3, 4, 5};
-const int control_line_y[length_y] = {6, 7, 8, 9};
+const int control_line_x[length_x] = {6, 7, 8};
+const int control_line_y[length_y] = {2, 3, 4, 5};
 volatile int map_idx = 0;
 
 const bool ledMap[][length_x][length_y]={
     {{1, 1, 1, 1},
     {1, 0, 0, 1},
-    {1, 0, 0, 1},
     {1, 1, 1, 1}},
 
     {{1, 0, 0, 1},
     {1, 0, 0, 1},
-    {1, 0, 0, 1},
     {1, 0, 0, 1}},
 
     {{1, 1, 1, 1},
-    {0, 0, 0, 0},
     {0, 0, 0, 0},
     {1, 1, 1, 1}}
     };
@@ -32,11 +29,12 @@ void setup(){
         pinMode(control_line_y[i], OUTPUT);
         digitalWrite(control_line_y[i], LOW);
     }
-    delay(3000);
+    ISR_enable();
+    delay(300);
 }
 
 void loop(){
-    map_idx = (map_idx+1) % length_map;
+    map_idx = 0;
     delay(1000);
 }
 
@@ -65,5 +63,5 @@ ISR(TIMER2_COMPA_vect)
     for (int i=0; i<length_y; i++){
         digitalWrite(control_line_y[i], ledMap[map_idx][update_idx][i]);
     }
-    digitalWrite(control_line_x[++update_idx], true);
+    digitalWrite(control_line_x[update_idx], true);
 }
