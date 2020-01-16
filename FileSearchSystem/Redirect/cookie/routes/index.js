@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var csv = require('fast-csv', {encoding: 'utf-8'})
+var csv = require('fast-csv')
 var converter = require('hex2dec');
 
 /////////
