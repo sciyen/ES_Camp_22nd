@@ -8,6 +8,7 @@
 	<span id="sizeA">老鼠暱稱: <%= data.name %></span><br/>
 	<span id="sizeB">所屬小隊: <%= data.team %></span><br/>
 
+    <%var score = 0%>
 
     <%if(typeof(user) !== 'undefined' && user.username == '4ff75f80957469c4b6af5824cb99bf4919abad98'){%>
         <%if(user.comsumeMode){%>
@@ -26,6 +27,7 @@
               function calc() {
                 document.getElementById("score").innerHTML = <%= parseInt(data.score)%> - parseInt(document.getElementById("consumeValue").value);
                 document.getElementById("hidden").style.display = "block";
+                document.getElementById("check").action += "&score=" + document.getElementById("score").innerHTML
               }
               </script>
           <br/>

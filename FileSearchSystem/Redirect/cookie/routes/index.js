@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var csv = require('fast-csv');
+var csv = require('fast-csv')
 var converter = require('hex2dec');
 
 /////////
@@ -8,6 +8,7 @@ var converter = require('hex2dec');
 /////////
 
 /* GET home page. */
+//未使用
 router.get('/', function(req, res, next) {
     res.redirect('index');
 });
@@ -27,7 +28,7 @@ router.get('/index', function(req, res, next) {
 //////////
 //login //
 //////////
-
+//未使用
 router.get('/login', function(req, res, next) {
     res.render('login')
 })
@@ -49,7 +50,7 @@ router.post('/login', function(req, res, next) {
     }
 
 })
-
+/********************************************************************************************************************/
 router.get('/logout', function(req, res, next) {
     //刪除Cookie
     res.clearCookie('user');
@@ -75,6 +76,8 @@ router.post('/addScore', function(req, res, next) { //加分設定頁面
         req.user = req.cookies.user;
     }
     res.clearCookie('user');
+
+    //把紀錄存入cookie
     res.cookie("user", { username: req.cookies.user.username, score: req.body.score }, { expires: new Date(2020, 3, 15) }, { httpOnly: true });
     console.log(req.user);
 
@@ -125,13 +128,13 @@ router.post('/confirmConsume', function(req, res, next) {
     ////////////// 
     req.data = {};
     req.data.path = req.query.value;
-    if (typeof req.query.value == "number") {
+
     var team = req.query.team;
     console.log(teamscore[team - 1]);
-    teamscore[team - 1].score = parseInt(teamscore[team - 1].score) - parseInt(req.body.consumeValue);
+    teamscore[team - 1].score = req.query.score;
 
     saveScore();
-	}
+
     res.render('confirmAdd', req);
 });
 
@@ -232,12 +235,19 @@ router.get('/query', function(req, res, next) {
     //const test = 'b1141164cf258ce64aa70867c62883e941a9ff6a';
 
     if (req.query.value) {
-    var row = dehash(req.query.value);
+        var row = dehash(req.query.value);
+        if (req.query.value == database[row].hash) {
+            req.data = {};
+            req.data.name = database[row].name;
+            req.data.team = database[row].team;
+            req.data.score = teamscore[database[row].team - 1].score;
 
-    req.data = {};
-    req.data.name = database[row].name;
-    req.data.team = database[row].team;
-    req.data.score = teamscore[database[row].team - 1].score;
+        }else{
+            req.data = {};
+            req.data.name = "查無資料!";
+            req.data.team = req.data.score = "";
+
+        }
 
 	}else{
 		req.data = {};
