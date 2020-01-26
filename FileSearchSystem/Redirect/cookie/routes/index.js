@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var csv = require('fast-csv')
 var converter = require('hex2dec');
+var fs = require('fs');
 
 /////////
 //index//
@@ -34,20 +35,8 @@ router.get('/login', function(req, res, next) {
 })
 
 router.post('/login', function(req, res, next) {
-    var username = req.body.username;
-    var pwd = req.body.pwd;
-    var user = {
-        username: 'admin',
-        pwd: 123456
-    }
-    if (username == user.username && pwd == user.pwd) {
-
-        res.cookie("user", { username: username }, { expires: new Date(2020, 3, 15) }, { httpOnly: true });
-        res.redirect('index');
-    } else {
-        req.error = '使用者名稱密碼錯誤'
-        res.render('login', req);
-    }
+    req.error = '使用者名稱密碼錯誤'
+    res.render('login', req);
 
 })
 /********************************************************************************************************************/
@@ -66,12 +55,12 @@ router.get('/addScore', function(req, res, next) {
     if (req.cookies.user !== null) {
         req.user = req.cookies.user;
     }
-    console.log(req.user);
+    //console.log(req.user);
     res.render('addScore', req);
 });
 
 router.post('/addScore', function(req, res, next) { //加分設定頁面
-    console.log(req.body.score);
+    //console.log(req.body.score);
     if (req.cookies.user !== null) {
         req.user = req.cookies.user;
     }
@@ -79,7 +68,7 @@ router.post('/addScore', function(req, res, next) { //加分設定頁面
 
     //把紀錄存入cookie
     res.cookie("user", { username: req.cookies.user.username, score: req.body.score }, { expires: new Date(2020, 3, 15) }, { httpOnly: true });
-    console.log(req.user);
+    //console.log(req.user);
 
     res.redirect('index');
 
@@ -94,19 +83,24 @@ router.get('/confirmAdd', function(req, res, next) {
 });
 
 router.post('/confirmAdd', function(req, res, next) { //實際上的加分
-    console.log(req.query.team);
+    //console.log(req.query.team);
     if (req.cookies.user !== null) {
         req.user = req.cookies.user;
     }
+    //console.log(req)
+    
     //////////////
     //add Score //
     //////////////
+    
     var team = req.query.team;
     
-    if (req.cookies.user.score) {
-        teamscore[team - 1].score = parseInt(req.cookies.user.score) + parseInt(teamscore[team - 1].score);
-        console.log(teamscore[team - 1].score);
+    if (req.query.score) {
+
+        teamscore[team - 1].score = req.query.score;
+        console.log(req.query.score);
         saveScore();
+        updateHistory(team, req.query.score)
     }
     req.data = {};
     req.data.path = req.query.value;
@@ -130,7 +124,9 @@ router.post('/confirmConsume', function(req, res, next) {
     req.data.path = req.query.value;
 
     var team = req.query.team;
-    console.log(teamscore[team - 1]);
+
+    updateHistory(team, req.query.score)
+    
     teamscore[team - 1].score = req.query.score;
 
     saveScore();
@@ -138,6 +134,67 @@ router.post('/confirmConsume', function(req, res, next) {
     res.render('confirmAdd', req);
 });
 
+////////////
+//history //
+////////////
+
+var history = []
+//預先載入歷史紀錄
+readHistory()
+
+function readHistory() {
+    if(history.length == 0){
+        console.log("History read from file...")
+        //show hist
+        fs.readFile('../csv/history.txt', function (err, data) {
+            if (err) 
+                throw err;
+            history = data.toString().split('\n')
+
+        });
+    }
+}
+
+function updateHistory(team, newScore){
+
+        readHistory()
+
+        history.unshift(getDateTime() + " // team " + team + ": " + teamscore[team - 1].score + " -> " + newScore)
+        if(history.length > 50){
+            history.pop()
+        }
+
+    line = ""
+
+    for (var i = 0; i < history.length; i++) {
+        line += history[i] + '\n'
+    }
+
+    //write hist
+    fs.writeFile('../csv/history.txt', line, function (err) {
+        if (err)
+            console.log(err);
+        else
+            console.log('Append operation complete.');
+    });
+
+}
+
+
+router.get('/history', function(req, res, next) {
+    if (req.cookies.user && req.cookies.user.username == '4ff75f80957469c4b6af5824cb99bf4919abad98') {
+        req.user = req.cookies.user;
+        console.log('access successful');
+        req.history = ""
+        for(var i = 0; i<history.length;i++)
+            req.history += history[i].toString() + "<br/>"
+    } else {
+        console.log('access fail');
+    }
+
+
+    res.render('history', req)
+});
 
 /////////////////
 //ComsumeScore //
@@ -147,6 +204,7 @@ router.get('/ComsumeScore', function(req, res, next) {
     if (req.cookies.user !== null) {
         req.user = req.cookies.user;
     }
+
     res.cookie("user", { username: req.cookies.user.username, comsumeMode: true }, { expires: new Date(2020, 3, 15) }, { httpOnly: true });
     res.render('ComsumeScore', req);
 });
@@ -208,6 +266,7 @@ function saveScore() {
     csv.writeToPath("../csv/team.csv", teamscore, { headers: true })
         .on('error', err => console.error(err))
         .on('finish', () => console.log('Done writing.'));
+
 }
 /////////
 //hash //
@@ -215,7 +274,7 @@ function saveScore() {
 
 function dehash(hash) {
     var row = converter.hexToDec(hash.slice(13, 15)) - 17;
-    console.log("dehash: " + hash.slice(13, 15));
+    //console.log("dehash: " + hash.slice(13, 15));
     return row; //row start from 1
 }
 
@@ -223,7 +282,7 @@ function dehash(hash) {
 //query //
 //////////
 router.get('/query', function(req, res, next) {
-    console.log(req.cookies.user);
+    //console.log(req.cookies.user);
 
     if (req.cookies.user && req.cookies.user.username == '4ff75f80957469c4b6af5824cb99bf4919abad98') {
         req.user = req.cookies.user;
@@ -269,8 +328,6 @@ router.get('/eslogin', function(req, res, next) {
 
 
 router.post('/eslogin', function(req, res, next) {
-    console.log(req.body.username);
-    console.log(req.body.pwd);
 
     var username = req.body.username;
     var pwd = req.body.pwd;
@@ -288,3 +345,93 @@ router.post('/eslogin', function(req, res, next) {
     }
 
 })
+
+////////
+//set //
+////////
+
+router.get('/set', function(req, res, next) {
+    req.history = ""
+
+    if (req.cookies.user && req.cookies.user.username == '4ff75f80957469c4b6af5824cb99bf4919abad98') {
+        console.log('access successful');
+
+                req.data = {};
+                req.data.teamScore = [0,0,0,0,0,0,0,0,0];
+                for (var i = 0; i <8; i++) {
+                    req.data.teamScore[i] = teamscore[i].score;
+                }
+
+                req.user = req.cookies.user;
+
+                req.history = ""
+                for(var i = 0; i<history.length;i++)
+                    req.history += history[i].toString() + "<br/>"
+
+
+    } else {
+        console.log('access fail');
+    }
+
+
+    res.render('set', req)
+});
+
+router.post('/set', function(req, res, next) {
+    if (req.cookies.user !== null) {
+        req.user = req.cookies.user;
+    }
+    //////////////
+    //set Score //
+    ////////////// 
+    var team = [req.body.score0,req.body.score1,req.body.score2,req.body.score3,req.body.score4,req.body.score5,req.body.score6,req.body.score7]
+    
+    for (var i = 0; i <8; i++) {
+        if (teamscore[i].score != team[i]) {
+            updateHistory(i+1, team[i]);
+            teamscore[i].score = team[i];
+
+        }
+    }
+    saveScore();
+
+    req.data = {}
+    req.data.teamScore = team
+    
+    req.user = req.cookies.user;
+
+    req.history = ""
+    for(var i = 0; i<history.length;i++){
+        req.history += history[i].toString() + "<br/>"
+    }
+
+    res.render('confirmSet', req);
+});
+
+/////////////
+//get date //
+/////////////
+function getDateTime() {
+
+    var date = new Date();
+
+    var hour = date.getHours();
+    hour = (hour < 10 ? "0" : "") + hour;
+
+    var min  = date.getMinutes();
+    min = (min < 10 ? "0" : "") + min;
+
+    var sec  = date.getSeconds();
+    sec = (sec < 10 ? "0" : "") + sec;
+
+    var year = date.getFullYear();
+
+    var month = date.getMonth() + 1;
+    month = (month < 10 ? "0" : "") + month;
+
+    var day  = date.getDate();
+    day = (day < 10 ? "0" : "") + day;
+
+    return year + ":" + month + ":" + day + "::" + hour + ":" + min + ":" + sec;
+
+}
