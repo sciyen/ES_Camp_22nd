@@ -24,17 +24,18 @@
               <button type="button" onclick="calc()"><font id="sizeB">計算分數</font></button></div>
 
               <script>
-              function calc() {
-                newValue =  <%= parseInt(data.score)%> - parseInt(document.getElementById("consumeValue").value)
-                if(isNaN(newValue))
-                  {
-                    document.getElementById("score").innerHTML = <%= parseInt(data.score)%>;
-                  }else{
-                    document.getElementById("score").innerHTML = <%= parseInt(data.score)%> - parseInt(document.getElementById("consumeValue").value);
+                var isUsed = false
+                function calc() {
+                  newValue =  <%= parseInt(data.score)%> - parseInt(document.getElementById("consumeValue").value)
+                  if(isNaN(newValue))
+                    {
+                      document.getElementById("score").innerHTML = <%= parseInt(data.score)%>;
+                    }else{
+                      document.getElementById("score").innerHTML = <%= parseInt(data.score)%> - parseInt(document.getElementById("consumeValue").value);
 
-                  }
+                    }
                 document.getElementById("hidden").style.display = "block";
-                document.getElementById("check").action += "&score=" + document.getElementById("score").innerHTML
+                document.getElementById("check").action = "confirmConsume?value=<%= query.value %>&team=<%= data.team %>&score=" + document.getElementById("score").innerHTML
               }
               </script>
           <br/>
