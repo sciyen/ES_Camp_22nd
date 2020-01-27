@@ -127,6 +127,11 @@ router.post('/confirmConsume', function(req, res, next) {
 
     updateHistory(team, req.query.score)
     
+    //紀錄消費王
+    console.log(teamscore[team - 1].totalUse)
+    console.log(teamscore[team - 1].score)
+    console.log(req.query.score)
+    teamscore[team - 1].totalUse = parseInt(teamscore[team - 1].totalUse) + parseInt(teamscore[team - 1].score) - parseInt(req.query.score)
     teamscore[team - 1].score = req.query.score;
 
     saveScore();
@@ -160,7 +165,7 @@ function updateHistory(team, newScore){
         readHistory()
 
         history.unshift(getDateTime() + " // team " + team + ": " + teamscore[team - 1].score + " -> " + newScore)
-        if(history.length > 50){
+        if(history.length > 500){
             history.pop()
         }
 
@@ -317,10 +322,20 @@ router.get('/query', function(req, res, next) {
 
 });
 
+router.get('/teamScore', function(req, res, next) {
+    req.teamScore = "";
+    for(var i = 0; i < 8; i++){
+        req.teamScore += "第" + (i+1).toString() + "小隊: " + teamscore[i].score + "點 " + "(已消費" + teamscore[i].totalUse + "點)<br/>"
+    }
+    ////
+    res.render('teamScore', req);
 
+});
 //////////
 //login //
 //////////
+
+key = {}
 
 router.get('/eslogin', function(req, res, next) {
     res.render('eslogin')
@@ -332,8 +347,8 @@ router.post('/eslogin', function(req, res, next) {
     var username = req.body.username;
     var pwd = req.body.pwd;
     var user = {
-        username: 'esncku',
-        pwd: 'esncku'
+        username: key.username,
+        pwd: key.pwd
     }
     if (username == user.username && pwd == user.pwd) {
 
@@ -346,6 +361,19 @@ router.post('/eslogin', function(req, res, next) {
 
 })
 
+readPassword();
+function readPassword()
+{
+    // default username and password: watermelon,pineapple
+    fs.readFile('../csv/key.txt', function (err, data) {
+            if (err) 
+                throw err;
+            key.username = data.toString().split(',')[0]
+            key.pwd = data.toString().split(',')[1]
+
+        });
+}
+
 ////////
 //set //
 ////////
@@ -357,7 +385,7 @@ router.get('/set', function(req, res, next) {
         console.log('access successful');
 
                 req.data = {};
-                req.data.teamScore = [0,0,0,0,0,0,0,0,0];
+                req.data.teamScore = [0,0,0,0,0,0,0,0];
                 for (var i = 0; i <8; i++) {
                     req.data.teamScore[i] = teamscore[i].score;
                 }
@@ -432,6 +460,6 @@ function getDateTime() {
     var day  = date.getDate();
     day = (day < 10 ? "0" : "") + day;
 
-    return year + ":" + month + ":" + day + "::" + hour + ":" + min + ":" + sec;
+    return year + month + day + "::" + hour + ":" + min + ":" + sec;
 
 }
