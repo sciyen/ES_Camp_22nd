@@ -30,6 +30,12 @@ body {
     display: inline-block;
  	font: 36px "Microsoft JhengHei", "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+#sizeE {
+  	padding: 2px;
+	text-align:left;
+    display: inline-block;
+ 	font: 36px "Microsoft JhengHei", "Lucida Grande", Helvetica, Arial, sans-serif;
+}
 #form {
   	padding: 20px;
 	text-align:center;

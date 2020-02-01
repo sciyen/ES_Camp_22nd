@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>工科營查詢系統 - 歷史紀錄</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <%if(typeof(user) != 'undefined' && user.username == '4ff75f80957469c4b6af5824cb99bf4919abad98'){%>
+      <span id="sizeD">歷史紀錄:<br/>
+        <%- history %></span>
+
+    <%}else{%>
+        <span id="sizeD"><font color="C00000">你沒有權限檢視此頁面。</font></span>
+    <%}%>
+  </body>
+</html>
