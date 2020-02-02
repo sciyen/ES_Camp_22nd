@@ -96,7 +96,7 @@ router.post('/confirmAdd', function(req, res, next) { //實際上的加分
     var team = req.query.team;
     
     if (req.query.score) {
-
+        teamscore[team - 1].totalGet = parseInt(teamscore[team - 1].totalGet) + parseInt(req.query.score) - parseInt(teamscore[team - 1].score)
         teamscore[team - 1].score = req.query.score;
         console.log(req.query.score);
         saveScore();
@@ -128,9 +128,6 @@ router.post('/confirmConsume', function(req, res, next) {
     updateHistory(team, req.query.score)
     
     //紀錄消費王
-    console.log(teamscore[team - 1].totalUse)
-    console.log(teamscore[team - 1].score)
-    console.log(req.query.score)
     teamscore[team - 1].totalUse = parseInt(teamscore[team - 1].totalUse) + parseInt(teamscore[team - 1].score) - parseInt(req.query.score)
     teamscore[team - 1].score = req.query.score;
 
@@ -325,7 +322,7 @@ router.get('/query', function(req, res, next) {
 router.get('/teamScore', function(req, res, next) {
     req.teamScore = "";
     for(var i = 0; i < 8; i++){
-        req.teamScore += "第" + (i+1).toString() + "小隊: " + teamscore[i].score + "點 " + "(已消費" + teamscore[i].totalUse + "點)<br/>"
+        req.teamScore += "第" + (i+1).toString() + "小隊: " + teamscore[i].score + "點 " + "(共獲得" + teamscore[i].totalGet + "點，已消費" + teamscore[i].totalUse + "點)<br/>"
     }
     ////
     res.render('teamScore', req);
@@ -386,8 +383,12 @@ router.get('/set', function(req, res, next) {
 
                 req.data = {};
                 req.data.teamScore = [0,0,0,0,0,0,0,0];
+                req.data.teamScoreGet = [0,0,0,0,0,0,0,0];
+                req.data.teamScoreUse = [0,0,0,0,0,0,0,0];
                 for (var i = 0; i <8; i++) {
                     req.data.teamScore[i] = teamscore[i].score;
+                    req.data.teamScoreGet[i] = teamscore[i].totalGet;
+                    req.data.teamScoreUse[i] = teamscore[i].totalUse;
                 }
 
                 req.user = req.cookies.user;
@@ -413,18 +414,23 @@ router.post('/set', function(req, res, next) {
     //set Score //
     ////////////// 
     var team = [req.body.score0,req.body.score1,req.body.score2,req.body.score3,req.body.score4,req.body.score5,req.body.score6,req.body.score7]
-    
+    var teamGet = [req.body.scoreGet0,req.body.scoreGet1,req.body.scoreGet2,req.body.scoreGet3,req.body.scoreGet4,req.body.scoreGet5,req.body.scoreGet6,req.body.scoreGet7]
+    var teamUse = [req.body.scoreUse0,req.body.scoreUse1,req.body.scoreUse2,req.body.scoreUse3,req.body.scoreUse4,req.body.scoreUse5,req.body.scoreUse6,req.body.scoreUse7]
+
     for (var i = 0; i <8; i++) {
         if (teamscore[i].score != team[i]) {
             updateHistory(i+1, team[i]);
             teamscore[i].score = team[i];
-
         }
+        teamscore[i].totalGet = teamGet[i]
+        teamscore[i].totalUse = teamUse[i]
     }
     saveScore();
 
     req.data = {}
     req.data.teamScore = team
+    req.data.teamScoreGet = teamGet
+    req.data.teamScoreUse = teamUse
     
     req.user = req.cookies.user;
 
