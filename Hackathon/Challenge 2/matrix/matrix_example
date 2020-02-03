@@ -1,27 +1,27 @@
 #define length_x 3      // Control_line_x 的數量
-#define length_y 3      // Control_line_y 的數量
+#define length_y 4      // Control_line_y 的數量
 #define length_map 3    // 畫格數量
-int a=-1;
+char a=-1;
 // 設定控制線(Pin腳編號)
 const int control_line_x[length_x] = {6, 7, 8};
-const int control_line_y[length_y] = {3, 4, 5};
+const int control_line_y[length_y] = {2, 3, 4, 5};
 
 // 畫格編號初始化
 volatile int map_idx = 0;
 
 // 畫格矩陣
 const bool ledMap[][length_x][length_y]={
-    {{1, 1, 1},
-    {1, 0, 1},
-    {1, 1, 1}},
+    {{1, 1, 1, 1},
+    {1, 0, 0, 1},
+    {1, 1, 1, 1}},
 
-    {{1, 0, 1},
-    {1, 0, 1},
-    {1, 0, 1}},
+    {{1, 0, 0, 1},
+    {1, 0, 0, 1},
+    {1, 0, 0, 1}},
 
-    {{1, 1, 1},
+    {{1, 1, 1, 1},
     {0, 0, 0},
-    {1, 1, 1}}
+    {1, 1, 1, 1}}
     };
 
 void setup(){
@@ -40,17 +40,13 @@ void setup(){
 }
 ''
 void loop(){
+    
+    a=Serial.read();//讓a讀取輸入的資料
     //從這裡開始改
-    a= Serial.read();//讓a讀取輸入的資料
-    if(a == 1){       //第一個狀況
-        map_idx=1;    //第一個狀況要做的事情
-        map_idx=2;    //第一個狀況要做的事情
-    }else if( a ==  ){   //第二個狀況
-                     //第二個狀況要做的事情
-    }else if(   ){   //第三個狀況
-                     //第三個狀況要做的事情
-    }else{           //其餘的狀況(不用改)
-      map_idx=-1;
+    if(a == '1'){       //第一個狀況
+        map_idx=1;      //第一個狀況要做的事情
+    }else if(){
+        
     }
   
 }
