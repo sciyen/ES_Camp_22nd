@@ -366,7 +366,7 @@ function readPassword()
             if (err) 
                 throw err;
             key.username = data.toString().split(',')[0]
-            key.pwd = data.toString().split(',')[1]
+            key.pwd = data.toString().split(',')[1].replace(/\r\n|\n/g,"")
 
         });
 }
