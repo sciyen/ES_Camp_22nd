@@ -19,7 +19,7 @@ router.get('/index', function(req, res, next) {
         req.user = req.cookies.user;
     }
     if(req.cookies.user && req.user.comsumeMode){
-   		res.redirect('ComsumeScore');
+   		res.redirect('comsumeScore');
     }else{
     res.render('index', req);
     }
@@ -97,10 +97,10 @@ router.post('/confirmAdd', function(req, res, next) { //實際上的加分
     
     if (req.query.score) {
         teamscore[team - 1].totalGet = parseInt(teamscore[team - 1].totalGet) + parseInt(req.query.score) - parseInt(teamscore[team - 1].score)
+        updateHistory(team, req.query.score)
         teamscore[team - 1].score = req.query.score;
         console.log(req.query.score);
         saveScore();
-        updateHistory(team, req.query.score)
     }
     req.data = {};
     req.data.path = req.query.value;
@@ -199,16 +199,16 @@ router.get('/history', function(req, res, next) {
 });
 
 /////////////////
-//ComsumeScore //
+//comsumeScore //
 /////////////////
 
-router.get('/ComsumeScore', function(req, res, next) {
+router.get('/comsumeScore', function(req, res, next) {
     if (req.cookies.user !== null) {
         req.user = req.cookies.user;
     }
 
     res.cookie("user", { username: req.cookies.user.username, comsumeMode: true }, { expires: new Date(2020, 3, 15) }, { httpOnly: true });
-    res.render('ComsumeScore', req);
+    res.render('comsumeScore', req);
 });
 
 
