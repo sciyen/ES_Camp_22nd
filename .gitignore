@@ -2,3 +2,4 @@
 *.lock
 node_modules
 token.json
+FileSearchSystem/Redirect/cookie/csv/data.csv

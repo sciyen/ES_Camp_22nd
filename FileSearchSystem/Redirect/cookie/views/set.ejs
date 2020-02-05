@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>工科營查詢系統 - 分數設定</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <%if(typeof(user) != 'undefined' && user.username == '4ff75f80957469c4b6af5824cb99bf4919abad98'){%>
+    <span id="sizeC"><font color="C00000">已進入設定模式</font></span>
+
+    <table width="100%" style="table-layout:fixed">
+      <tr>
+        <td align='center'>
+          <form id="set" method="post">
+          <span id="sizeE">　　　　當前/共得/已消費</span><br/>
+          <span id="sizeE">第1小隊: 
+            <input type="number" id="sizeE" name="score0" style="width:80px;" value=<%= data.teamScore[0] %> >
+            <input type="number" id="sizeE" name="scoreGet0" style="width:80px;" value=<%= data.teamScoreGet[0] %> >
+            <input type="number" id="sizeE" name="scoreUse0" style="width:80px;" value=<%= data.teamScoreUse[0] %> >
+          </span><br/>
+          <span id="sizeE">第2小隊:
+            <input type="number" id="sizeE" name="score1" style="width:80px;" value=<%= data.teamScore[1] %>>
+            <input type="number" id="sizeE" name="scoreGet1" style="width:80px;" value=<%= data.teamScoreGet[1] %> >
+            <input type="number" id="sizeE" name="scoreUse1" style="width:80px;" value=<%= data.teamScoreUse[1] %> >
+          </span><br/>
+          <span id="sizeE">第3小隊:
+            <input type="number" id="sizeE" name="score2" style="width:80px;" value=<%= data.teamScore[2] %>>
+            <input type="number" id="sizeE" name="scoreGet2" style="width:80px;" value=<%= data.teamScoreGet[2] %> >
+            <input type="number" id="sizeE" name="scoreUse2" style="width:80px;" value=<%= data.teamScoreUse[2] %> >
+          </span><br/>
+          <span id="sizeE">第4小隊:
+            <input type="number" id="sizeE" name="score3" style="width:80px;" value=<%= data.teamScore[3] %>>
+            <input type="number" id="sizeE" name="scoreGet3" style="width:80px;" value=<%= data.teamScoreGet[3] %> >
+            <input type="number" id="sizeE" name="scoreUse3" style="width:80px;" value=<%= data.teamScoreUse[3] %> >
+          </span><br/>
+          <span id="sizeE">第5小隊:
+            <input type="number" id="sizeE" name="score4" style="width:80px;" value=<%= data.teamScore[4] %>>
+            <input type="number" id="sizeE" name="scoreGet4" style="width:80px;" value=<%= data.teamScoreGet[4] %> >
+            <input type="number" id="sizeE" name="scoreUse4" style="width:80px;" value=<%= data.teamScoreUse[4] %> >
+          </span><br/>
+          <span id="sizeE">第6小隊:
+            <input type="number" id="sizeE" name="score5" style="width:80px;" value=<%= data.teamScore[5] %>>
+            <input type="number" id="sizeE" name="scoreGet5" style="width:80px;" value=<%= data.teamScoreGet[5] %> >
+            <input type="number" id="sizeE" name="scoreUse5" style="width:80px;" value=<%= data.teamScoreUse[5] %> >
+          </span><br/>
+          <span id="sizeE">第7小隊:
+            <input type="number" id="sizeE" name="score6" style="width:80px;" value=<%= data.teamScore[6] %>>
+            <input type="number" id="sizeE" name="scoreGet6" style="width:80px;" value=<%= data.teamScoreGet[6] %> >
+            <input type="number" id="sizeE" name="scoreUse6" style="width:80px;" value=<%= data.teamScoreUse[6] %> >
+          </span><br/>
+          <span id="sizeE">第8小隊:
+            <input type="number" id="sizeE" name="score7" style="width:80px;" value=<%= data.teamScore[7] %>>
+            <input type="number" id="sizeE" name="scoreGet7" style="width:80px;" value=<%= data.teamScoreGet[7] %> >
+            <input type="number" id="sizeE" name="scoreUse7" style="width:80px;" value=<%= data.teamScoreUse[7] %> >
+          </span><br/>
+          <span id="sizeE">
+            <input type="submit" value="設定完成" id="sizeE" style="width:24vw;text-align:center;padding: 10px;" >
+          </span>
+        </td>
+        <td valign="top">
+          <span id="sizeE"><font size="3">歷史紀錄:<br/><%- history %></font></span>
+        </td>
+      
+    </form>
+
+
+    </table>
+    <%}else{%>
+        <span id="sizeE"><font color="C00000">你沒有權限檢視此頁面。</font></span>
+    <%}%>
+  </body>
+</html>

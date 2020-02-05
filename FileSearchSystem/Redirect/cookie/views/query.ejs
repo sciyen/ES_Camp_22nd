@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>工科營查詢系統</title>
+    <title>工科營查詢系統 - 分數查詢</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
 	<span id="sizeA">老鼠暱稱: <%= data.name %></span><br/>
 	<span id="sizeB">所屬小隊: <%= data.team %></span><br/>
+  <span id="sizeD"><a href="http://nckuvincent.ddns.net:11230/teamScore">>點我查看所有小隊分數<</a></span>
 
     <%var score = 0%>
 
@@ -16,7 +17,7 @@
             <form action="confirmConsume?value=<%= query.value %>&team=<%= data.team %>" method="post" id="check">
               <span id="sizeB"><font color="#C05050">
                 <B>【消費
-                 <input type="number" id="consumeValue" name="consumeValue" style="border-style:solid; width:28px; font-family:Microsoft JhengHei">
+                 <input type="number" id="consumeValue" name="consumeValue" style="border-style:solid; width:80px; font-family:Microsoft JhengHei">
                 分】 小隊分數: <%= data.score %> → <span id="score">??</span>
                 </B>
               </span>
@@ -24,29 +25,42 @@
               <button type="button" onclick="calc()"><font id="sizeB">計算分數</font></button></div>
 
               <script>
-              function calc() {
-                document.getElementById("score").innerHTML = <%= parseInt(data.score)%> - parseInt(document.getElementById("consumeValue").value);
+                var isUsed = false
+                function calc() {
+                  newValue =  <%= parseInt(data.score)%> - parseInt(document.getElementById("consumeValue").value)
+                  if(isNaN(newValue))
+                    {
+                      document.getElementById("score").innerHTML = <%= parseInt(data.score)%>;
+                    }else{
+                      document.getElementById("score").innerHTML = <%= parseInt(data.score)%> - parseInt(document.getElementById("consumeValue").value);
+
+                    }
                 document.getElementById("hidden").style.display = "block";
-                document.getElementById("check").action += "&score=" + document.getElementById("score").innerHTML
+                document.getElementById("check").action = "confirmConsume?value=<%= query.value %>&team=<%= data.team %>&score=" + document.getElementById("score").innerHTML
               }
               </script>
           <br/>
           <br/>
-              <div id="hidden" style="display: none"><input id="sizeB" type="submit" value="確認消費" name="confirm"></div>
-           
+              <div id="hidden" style="display: none">
+                <input id="sizeB" type="submit" value="確認消費" name="confirm">
+                  <!--
+                    這裡要把修改內容傳到後端-->
+
+              </div>
+            
                 
           <br/>
           <span id="sizeD"><a claa="btn" href="/index">回首頁</a></span>
  </form>
         <%}else{%>
         	<br/>
-          <form action="confirmAdd?value=<%= query.value %>&team=<%= data.team %>" method="post">
-          <span id="sizeB"><font color="#50C050"  id="sizeB"><B>【加分】 小隊分數: <%= data.score %> → 
-            <%if(user.score){%>
-            <%=parseInt(data.score) + parseInt(user.score)%>
-            <%}else{%>
-            <%=parseInt(data.score)%>
-            <%} %>　</B></span>
+          <form action="confirmAdd?value=<%= query.value %>&team=<%= data.team %>&score=<%=parseInt(data.score) + parseInt(user.score)%>" method="post">
+            <span id="sizeB"><font color="#50C050"  id="sizeB"><B>【加分】 小隊分數: <%= data.score %> → 
+              <%if(user.score){%>
+              <%=parseInt(data.score) + parseInt(user.score)%>
+              <%}else{%>
+              <%=parseInt(data.score)%>
+              <%} %>　</B></span>
 
             <input  id="sizeB" type="submit" value="確認加分" name="confirm" style=" font-family:Microsoft JhengHei"></form></span>
           </form>
